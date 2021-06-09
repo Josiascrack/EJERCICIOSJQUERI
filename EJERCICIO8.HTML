@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <title>Document</title>
+    <style>
+        div {
+          margin: 3px;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          left: 0px;
+          top: 30px;
+          background: green;
+          display: none;
+        }
+        div.newcolor {
+          background: blue;
+        }
+        </style>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <div></div>
+     
+    <script>
+    $( "#start" ).click(function() {
+      var myDiv = $( "div" );
+      myDiv.show( "slow" );
+      myDiv.animate({
+        left:"+=200"
+      }, 5000 );
+     
+      myDiv.queue(function() {
+        var that = $( this );
+        that.addClass( "newcolor" );
+        that.dequeue();
+      });
+     
+      myDiv.animate({
+        left:"-=200"
+      }, 1500 );
+      myDiv.queue(function() {
+        var that = $( this );
+        that.removeClass( "newcolor" );
+        that.dequeue();
+      });
+      myDiv.slideUp();
+    });
+     
+    $( "#stop" ).click(function() {
+      var myDiv = $( "div" );
+      myDiv.clearQueue();
+      myDiv.stop();
+    });
+    </script>
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
